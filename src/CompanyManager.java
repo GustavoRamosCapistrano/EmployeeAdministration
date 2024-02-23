@@ -1,5 +1,6 @@
 
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -20,8 +21,18 @@ public class CompanyManager {
             System.out.println("Please log in as the manager.");
             System.out.print("Username: ");
             String usernameInput = scanner.nextLine();
+            if (usernameInput.equalsIgnoreCase("exit")) {
+                System.out.println("Exiting...");
+                scanner.close();
+                return;
+            }
             System.out.print("Password: ");
             String passwordInput = scanner.nextLine();
+            if (passwordInput.equalsIgnoreCase("exit")) {
+                System.out.println("Exiting...");
+                scanner.close();
+                return;
+            }
 
             if (usernameInput.equals(company.getUsername()) && passwordInput.equals(company.getPassword())) {
                 // Successful login
@@ -30,12 +41,6 @@ public class CompanyManager {
             } else {
                 // Failed login
                 System.out.println("Invalid username or password. Access denied.");
-                System.out.println("Please try again or type 'exit' to quit.");
-                String exitInput = scanner.nextLine();
-                if (exitInput.equalsIgnoreCase("exit")) {
-                    System.out.println("Exiting...");
-                    return;
-                }
             }
         }
 
@@ -48,14 +53,32 @@ public class CompanyManager {
             System.out.println("3. Remove staff");
             System.out.println("4. Exit");
             System.out.print("Enter your choice: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline character
-
+            // Validate user input
+            int choice = 0;
+            boolean validInput = false;
+            while (!validInput) {
+                if (scanner.hasNextInt()) {
+                    choice = scanner.nextInt();
+                    validInput = true;
+                } else {
+                    System.out.println("Invalid input. Please enter a number.");
+                    System.out.println("Menu:");
+                    System.out.println("1. View current staff");
+                    System.out.println("2. Add new staff");
+                    System.out.println("3. Remove staff");
+                    System.out.println("4. Exit");
+                    System.out.print("Enter your choice: ");
+                    scanner.next(); // Consume invalid input
+                }
+            }
             switch (choice) {
                 case 1:
-                    company.listEmployees(1);
+                    System.out.println("Viewing current staff...");
+                    company.listEmployees(0);
                     break;
                 case 2:
+                    // Add new staff
+                    System.out.println("Adding new staff...");
                     System.out.print("Enter employee name: ");
                     String name = scanner.nextLine();
                     System.out.print("Enter employee email: ");
@@ -63,8 +86,9 @@ public class CompanyManager {
                     Employee newEmployee = new Employee(name, email);
                     company.addNewStaff(newEmployee);
                     System.out.println("New employee added successfully.");
-                    break;
-                case 3:
+            break;
+        
+        case 3:
                     System.out.print("Enter employee empNum to remove: ");
                     int empNumToRemove = scanner.nextInt();
                     scanner.nextLine(); // Consume newline character
@@ -78,9 +102,9 @@ public class CompanyManager {
                     System.out.println("Invalid choice.");
                     break;
             }
-        }
-
+        
         // Close scanner
         scanner.close();
+
     }
-}
+    }}
