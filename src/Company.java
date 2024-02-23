@@ -61,4 +61,8 @@ public class Company {
     public String getPassword() {
         return password;
     }
+    
+    public ArrayList<Employee> getStaff() {
+        return staff;
+    }
 }
