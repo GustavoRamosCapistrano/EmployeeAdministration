@@ -1,3 +1,7 @@
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -23,7 +27,7 @@ public class Employee {
 
     public Employee(String name, String email) {
         this.name = name;
-        this.email = email;
+        setEmail(email); // Use setEmail method for validation
         this.empNum = nextEmpNum++;
     }
 
@@ -39,12 +43,16 @@ public class Employee {
         return empNum;
     }
 
-    // Method to set email with validation
-    public void setEmail(String email) {
-        if (email.length() > 3) {
+   public void setEmail(String email) {
+        // Regular expression pattern for validating email
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        
+        if (matcher.matches()) {
             this.email = email;
         } else {
-            System.out.println("Email must be longer than 3 characters.");
+            System.out.println("Invalid email address format.");
         }
     }
 
