@@ -79,16 +79,30 @@ public class CompanyManager {
                 case 2:
                     // Add new staff
                     System.out.println("Adding new staff...");
+
+                    // Prompt for employee name
                     System.out.print("Enter employee name: ");
+                    scanner.nextLine(); // Consume newline character
                     String name = scanner.nextLine();
-                    System.out.print("Enter employee email: ");
-                    String email = scanner.nextLine();
+
+                    // Prompt for employee email
+                    String email;
+                    boolean validEmailFormat;
+
+                    do {
+                        System.out.print("Enter employee email: ");
+                        email = scanner.nextLine();
+                        validEmailFormat = Pattern.matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$", email);
+                        if (!validEmailFormat) {
+                            System.out.println("Invalid email address format. Please try again.");
+                        }
+                    } while (!validEmailFormat);
+
                     Employee newEmployee = new Employee(name, email);
                     company.addNewStaff(newEmployee);
                     System.out.println("New employee added successfully.");
-            break;
-        
-        case 3:
+                    break;
+                case 3:
                     System.out.print("Enter employee empNum to remove: ");
                     int empNumToRemove = scanner.nextInt();
                     scanner.nextLine(); // Consume newline character
@@ -102,9 +116,9 @@ public class CompanyManager {
                     System.out.println("Invalid choice.");
                     break;
             }
-        
+        }
         // Close scanner
         scanner.close();
 
     }
-    }}
+}

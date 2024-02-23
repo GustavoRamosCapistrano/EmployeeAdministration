@@ -18,7 +18,7 @@ public class Company {
     private String username;
     private String password;
     private HashSet<Integer> staffSet;
-    
+
     public Company() {
         this.companyName = "Default Company";
         this.staff = new ArrayList<>();
@@ -34,26 +34,30 @@ public class Company {
     public void addNewStaff(Employee employee) {
         staff.add(employee);
     }
+
     public void removeStaff(int empNum) {
         Iterator<Employee> iterator = staff.iterator();
+        boolean removed = false;
         while (iterator.hasNext()) {
             Employee employee = iterator.next();
             if (employee.getEmpNum() == empNum) {
                 iterator.remove();
                 staffSet.remove(empNum); // Remove from HashSet as well
                 System.out.println("Employee with empNum " + empNum + " removed successfully.");
-                return; 
+                removed = true;
+                break;
             }
         }
-        System.out.println("Employee with empNum " + empNum + " not found.");
+        if (!removed) {
+            System.out.println("Employee with empNum " + empNum + " does not exist.");
+        }
     }
-
 
     public int getStaffNumber() {
         return staff.size();
     }
 
-  public void listEmployees(int empNumThreshold) {
+    public void listEmployees(int empNumThreshold) {
         System.out.println("Employees with empNum above " + empNumThreshold + ":");
         for (Employee employee : staff) {
             if (employee.getEmpNum() > empNumThreshold) {
@@ -63,7 +67,11 @@ public class Company {
                 System.out.println(); // Add a newline for separation
             }
         }
-  }
+    }
+
+    public boolean employeeExists(int empNum) {
+        return staffSet.contains(empNum);
+    }
 
     public void setUsername(String username) {
         this.username = username;
@@ -80,8 +88,9 @@ public class Company {
     public String getPassword() {
         return password;
     }
-    
+
     public ArrayList<Employee> getStaff() {
         return staff;
     }
+
 }
