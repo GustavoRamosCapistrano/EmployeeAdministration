@@ -10,11 +10,15 @@ import java.util.regex.Pattern;
  *
  * @author grc29
  */
+//Class to manage the longin process and menu for this company
 public class CompanyManager {
+    
+    // Method to handle manager login and menu access
     public static void managerLogin(Company company) {
         Scanner scanner = new Scanner(System.in);
         boolean loggedIn = false;
-
+        
+        // Manager login process
         while (!loggedIn) {
             System.out.println("Please log in as the manager.");
             System.out.print("Username: ");
@@ -32,6 +36,7 @@ public class CompanyManager {
                 return;
             }
 
+            // Check username and password
             if (usernameInput.equals(company.getUsername()) && passwordInput.equals(company.getPassword())) {
                 System.out.println("Login successful!");
                 loggedIn = true;
@@ -39,7 +44,8 @@ public class CompanyManager {
                 System.out.println("Invalid username or password. Access denied.");
             }
         }
-
+        
+        // Menu loop
         boolean running = true;
         while (running) {
             System.out.println("Menu:");
@@ -48,6 +54,7 @@ public class CompanyManager {
             System.out.println("3. Remove staff");
             System.out.println("4. Exit");
             System.out.print("Enter your choice: ");
+            // Validate user input
             int choice = 0;
             boolean validInput = false;
             while (!validInput) {
@@ -65,6 +72,8 @@ public class CompanyManager {
                     scanner.next();
                 }
             }
+            
+            // Process user choice
             switch (choice) {
                 case 1:
                     System.out.println("Viewing current staff...");
@@ -106,6 +115,7 @@ public class CompanyManager {
                     break;
             }
         }
+         // Close scanner
         scanner.close();
     }
 }
