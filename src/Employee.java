@@ -12,11 +12,9 @@ import java.util.regex.Pattern;
  * @author grc29
  */
 public class Employee {
-
     private String name;
     private String email;
     private int empNum;
-
     private static int nextEmpNum = 1;
 
     public Employee() {
@@ -27,7 +25,7 @@ public class Employee {
 
     public Employee(String name, String email) {
         this.name = name;
-        setEmail(email); // Use setEmail method for validation
+        setEmail(email);
         this.empNum = nextEmpNum++;
     }
 
@@ -43,23 +41,19 @@ public class Employee {
         return empNum;
     }
 
-   public void setEmail(String email) {
-        // Regular expression pattern for validating email
+    public static int getNextEmpNum() {
+        return nextEmpNum;
+    }
+
+    public void setEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern pattern = Pattern.compile(emailRegex);
         Matcher matcher = pattern.matcher(email);
-        
+
         if (matcher.matches()) {
             this.email = email;
         } else {
             System.out.println("Invalid email address format.");
         }
     }
-
-    // Method to get nextEmpNum
-    public static int getNextEmpNum() {
-        return nextEmpNum;
-    }
-
-    
 }

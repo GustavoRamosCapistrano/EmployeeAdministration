@@ -12,7 +12,6 @@ import java.util.Iterator;
  * @author grc29
  */
 public class Company {
-
     private String companyName;
     private ArrayList<Employee> staff;
     private String username;
@@ -33,6 +32,7 @@ public class Company {
 
     public void addNewStaff(Employee employee) {
         staff.add(employee);
+        staffSet.add(employee.getEmpNum());
     }
 
     public void removeStaff(int empNum) {
@@ -42,7 +42,7 @@ public class Company {
             Employee employee = iterator.next();
             if (employee.getEmpNum() == empNum) {
                 iterator.remove();
-                staffSet.remove(empNum); // Remove from HashSet as well
+                staffSet.remove(empNum);
                 System.out.println("Employee with empNum " + empNum + " removed successfully.");
                 removed = true;
                 break;
@@ -64,7 +64,7 @@ public class Company {
                 System.out.println("Name: " + employee.getName());
                 System.out.println("Email: " + employee.getEmail());
                 System.out.println("EmpNumber: " + employee.getEmpNum());
-                System.out.println(); // Add a newline for separation
+                System.out.println();
             }
         }
     }
@@ -92,5 +92,5 @@ public class Company {
     public ArrayList<Employee> getStaff() {
         return staff;
     }
-
 }
+

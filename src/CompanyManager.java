@@ -11,9 +11,7 @@ import java.util.regex.Pattern;
  * @author grc29
  */
 public class CompanyManager {
-
     public static void managerLogin(Company company) {
-        // Simulate manager login
         Scanner scanner = new Scanner(System.in);
         boolean loggedIn = false;
 
@@ -35,16 +33,13 @@ public class CompanyManager {
             }
 
             if (usernameInput.equals(company.getUsername()) && passwordInput.equals(company.getPassword())) {
-                // Successful login
                 System.out.println("Login successful!");
                 loggedIn = true;
             } else {
-                // Failed login
                 System.out.println("Invalid username or password. Access denied.");
             }
         }
 
-        // Menu loop
         boolean running = true;
         while (running) {
             System.out.println("Menu:");
@@ -53,7 +48,6 @@ public class CompanyManager {
             System.out.println("3. Remove staff");
             System.out.println("4. Exit");
             System.out.print("Enter your choice: ");
-            // Validate user input
             int choice = 0;
             boolean validInput = false;
             while (!validInput) {
@@ -68,7 +62,7 @@ public class CompanyManager {
                     System.out.println("3. Remove staff");
                     System.out.println("4. Exit");
                     System.out.print("Enter your choice: ");
-                    scanner.next(); // Consume invalid input
+                    scanner.next();
                 }
             }
             switch (choice) {
@@ -77,15 +71,11 @@ public class CompanyManager {
                     company.listEmployees(0);
                     break;
                 case 2:
-                    // Add new staff
                     System.out.println("Adding new staff...");
-
-                    // Prompt for employee name
                     System.out.print("Enter employee name: ");
-                    scanner.nextLine(); // Consume newline character
+                    scanner.nextLine();
                     String name = scanner.nextLine();
 
-                    // Prompt for employee email
                     String email;
                     boolean validEmailFormat;
 
@@ -105,11 +95,10 @@ public class CompanyManager {
                 case 3:
                     System.out.print("Enter employee empNum to remove: ");
                     int empNumToRemove = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline character
+                    scanner.nextLine();
                     company.removeStaff(empNumToRemove);
                     break;
                 case 4:
-                    // Exit
                     running = false;
                     break;
                 default:
@@ -117,8 +106,6 @@ public class CompanyManager {
                     break;
             }
         }
-        // Close scanner
         scanner.close();
-
     }
 }
